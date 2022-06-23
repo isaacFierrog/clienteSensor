@@ -1,4 +1,6 @@
 const d = document;
+const w = window;
+const MOBILE = 768;
 
 
 const ajax = async({ url, data, method='POST' }) => {
@@ -21,21 +23,25 @@ const ajax = async({ url, data, method='POST' }) => {
     }
 };
 
+const abrirCerrarPanel = () => {
+    const panelSensores = d.querySelector('.sensores');
+    panelSensores.classList.toggle('sensores--ocultar')
+}
+
 const crearSensor = () => {
     d.addEventListener('submit', e => {
         e.preventDefault();
-        console.log('SUBMIT');
+        
+        if(w.innerWidth < MOBILE){
+            abrirCerrarPanel();
+        }
     });
 };
-
 
 const mostrarPanelSensores = selecBoton => {
     d.addEventListener('click', e => {
         if(!e.target.matches(selecBoton)) return;
-
-        const panelSensores = d.querySelector('.sensores');
-        panelSensores.classList.toggle('sensores--ocultar')
-        console.log(panelSensores);
+        abrirCerrarPanel();
     });
 }
 
